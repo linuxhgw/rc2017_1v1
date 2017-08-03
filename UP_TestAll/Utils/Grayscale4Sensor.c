@@ -12,6 +12,8 @@
 
 int G4S_Enable = DISABLE;
 
+int G4S_danger = 0;
+
 int G4S_next_direction = DIRECTION_NONE;
 
 u8 G4S_GrayScaleSensorList[4] = {0, 0, 0, 0};
@@ -21,27 +23,32 @@ int G4S_gray_scale_origin_data[4] = {0, 0, 0, 0};
 int G4S_direction_data[4] = {0};
 
 int update_count = 0;
+int rand_move_flag = 0;
+
+void G4S_init() {
+    UP_Timer_EnableIT(0, 2000);//5ms    设置定时器
+    UP_Timer_SetHadler(0, G4S_UpdateGrayScaleSensor);//定时器中断 四灰度检测
+    debug_bluetooth_puts("g4s init\n");
+}
 
 void G4S_enable(int enable) {
     if (enable == ENABLE) {
+        debug_bluetooth_puts("g4s enable\n");
         G4S_Enable = ENABLE;
     } else {
+        debug_bluetooth_puts("g4s disable\n");
         G4S_Enable = DISABLE;
         G4S_next_direction = DIRECTION_NONE;
     }
 }
 
-
 //数值更新
 void G4S_UpdateGrayScaleSensor(void) {
-    int i = 0, attack = 0;
+    int i = 0;
+//    debug_bluetooth_puts("g4s update\n");
     for (i = 0; i < 4; i++) {
         G4S_gray_scale_origin_data[i] = UP_ADC_GetValue(G4S_GrayScaleSensorList[i]);
     }
-//    G4S_gray_scale_origin_data[0] = UP_ADC_GetValue(G4S_GrayScaleSensorList[0]);
-//    G4S_gray_scale_origin_data[1] = UP_ADC_GetValue(G4S_GrayScaleSensorList[1]);
-//    G4S_gray_scale_origin_data[2] = UP_ADC_GetValue(G4S_GrayScaleSensorList[2]);
-//    G4S_gray_scale_origin_data[3] = UP_ADC_GetValue(G4S_GrayScaleSensorList[3]);
 
     G4S_next_direction = G4S_Direction2Centre();
 
@@ -49,23 +56,16 @@ void G4S_UpdateGrayScaleSensor(void) {
         srand(G4S_gray_scale_origin_data[0]);
     update_count++;
     update_count %= 10000;
+    if (update_count % 200 == 0)
+        rand_move_flag = 1;
 
     if (G4S_Enable == DISABLE)
         return;
 
-    if (CS_State == STATE_ENEMY_FORWARD || CS_State == STATE_ENEMY_BACKWARD) {
-        attack = 1;
-        for (i = 0; i < 4; i++) {
-            if (G4S_gray_scale_origin_data[i] > 2) {
-                attack = 0;
-                break;
-            }
-        }
-        if (attack)
-            return;
-    }
+    if (G4S_danger == 0 && (((CS_EnemyState & 0x0f) != 0) || ((CS_State & 0x0f) != 0)))
+        return;
 
-    if (G4S_next_direction == DIRECTION_NONE) {
+    if (G4S_next_direction == DIRECTION_NONE && rand_move_flag == 1) {
         switch (rand() % 10) {
             case 0:
             case 1:
@@ -89,6 +89,7 @@ void G4S_UpdateGrayScaleSensor(void) {
                 SM_Move(DIRECTION_FORWARD, MOTOR_SPEED);
                 break;
         }
+        rand_move_flag = 0;
         return;
     }
 
@@ -109,10 +110,14 @@ void G4S_UpdateGrayScaleSensor(void) {
 int G4S_Direction2Centre() {
     int i, x = 0, y = 0, result = DIRECTION_NONE;
 
+    G4S_danger = 0;
     //find the nearest value in the array
     for (i = 0; i < 4; i++) {
         G4S_direction_data[i] = find_nearest_in_array_descend(G4S_gray_scale_origin_data[i], kG4S_SensorData[i], 0,
                                                               G4S_SENSOR_DATA_LENGTH);
+        if (G4S_direction_data[i] > 2) {
+            G4S_danger = 1;
+        }
     }
 
     y = G4S_direction_data[G4S_GRAY_SCALE_SENSOR_BACKWARD] -
