@@ -3,7 +3,7 @@
 #ifndef UP_Woody_ImageRecognition_H
 #define UP_Woody_ImageRecognition_H
 
-//Ó²¼ş³õÊ¼»¯
+//ç¡¬ä»¶åˆå§‹åŒ–
 
 //  extern u8 lab;
 //  extern u8 flam;
@@ -18,10 +18,10 @@
 extern void UP_Woody_Init(void);
 
 extern char  UP_Woody_ReturnData1[20];
-extern char  UP_Woody_StartImageRecognition[5];//Æô¶¯Í¼ÏñÊ¶±ğ
+extern char  UP_Woody_StartImageRecognition[5];//å¯åŠ¨å›¾åƒè¯†åˆ«
 
-extern char  UP_Woody_ReturnImageRecognition[20];//´æ·ÅÍ¼ÏñÊ¶±ğ·µ»ØµÄÊı
-extern char  UP_Woody_ClosingImageRecognition[5];//¹Ø±ÕÍ¼ÏñÊ¶±ğ
+extern char  UP_Woody_ReturnImageRecognition[20];//å­˜æ”¾å›¾åƒè¯†åˆ«è¿”å›çš„æ•°
+extern char  UP_Woody_ClosingImageRecognition[5];//å…³é—­å›¾åƒè¯†åˆ«
 extern void  UP_Clear_ImageRecognition_Data(void);
 
 extern void UP_Woody_Display_ReturnImageRecognize(void);
@@ -38,9 +38,9 @@ extern void UP_Woody_RedRecognize(u8 data);
 extern void UP_Woody_PinkRecognize(u8 data);
 extern void UP_Woody_WhiteRecognize(u8 data);
 
-//¶¨ÒåUSR232½ÓÊÕÖĞ¶ÏÈë¿Úº¯Êı
+//å®šä¹‰USR232æ¥æ”¶ä¸­æ–­å…¥å£å‡½æ•°
 extern void USR232_Hadler(u32 TempData);
-//¶¨Òå¶¨Ê±Æ÷ÖĞ¶ÏÈë¿Úº¯Êı
+//å®šä¹‰å®šæ—¶å™¨ä¸­æ–­å…¥å£å‡½æ•°
 extern void TimeHadler(u32 timechannel);
 extern void UP_Woody_ImageRecHSISet(u32 HMax,u32 HMin,u32 SMax,u32 SMin,u32 IMax,u32 IMin);
 extern void UP_Woody_ImageRecIDSet(u32 id);

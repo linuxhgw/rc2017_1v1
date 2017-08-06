@@ -1,9 +1,9 @@
 /******************************************************************/
-//	Copyright (C), 2011-2013, ±±¾©²©´´ 
-//  Author   	  : ÇÇäìéª  
+//	Copyright (C), 2011-2013, åŒ—äº¬åšåˆ› 
+//  Author   	  : ä¹”æ½‡æ¥   
 //  Update Date   : 2013/07/15
 //  Version   	  : 1.0            
-//  Reviser				: ÍõÎ°
+//  Reviser				: çŽ‹ä¼Ÿ
 //  Update Date   : 2014/08/18
 //  Version   	  : 1.0.1          
 //  Description   : The "UP_EnableUSR232IT(u32 BaudRate);" moves from UP_UART.c to UP_USR232.c
@@ -27,7 +27,7 @@ unsigned  char UP_RXlen[255]={
 unsigned  char UP_buffer_TX_ID_poling[64]={0x55,0xaa,0x6f,0x00,0x04,0x00,0x72,0x55,0xaa,0x60,0x00,0x04,0x00,0x63};
 unsigned  char UP_ID_num[16]={0x60,0x61,0x62,0x63,0x64,0x65,0x66,0x67,0x68,0x69,0x6a,0x6b,0x6c,0x6d,0x6e,0x6f};
 unsigned  char UP_ID_reset[20]={0x55, 0xAA, 0x00, 0x01, 0x04, 0x20, 0x00, 0x00  };
-/*********************************³¬Éù²¨µÄ´®¿ÚÍ¨ÐÅ´«ÊäÊý¾Ý*******************************/
+/*********************************è¶…å£°æ³¢çš„ä¸²å£é€šä¿¡ä¼ è¾“æ•°æ®*******************************/
 void UP_UART2_Putc(unsigned char c)
 {
 	  //USART_ClearFlag(USART2,USART_FLAG_TC);
@@ -53,7 +53,7 @@ void   UP_USART2_long(unsigned  char  ID)
 	UP_ID_len[5]=0x00;
 	UP_ID_len[6]=(UP_ID_len[0]+UP_ID_len[1]+UP_ID_len[2]+UP_ID_len[3]+UP_ID_len[4]+UP_ID_len[5])&0xff;
 	//printf("%d\n",ID_len[6]);
-	UP_UART2_length(UP_ID_len,7);//·¢ËÍ³¤¶È
+	UP_UART2_length(UP_ID_len,7);//å‘é€é•¿åº¦
 }
 void UP_UART2_polling(unsigned char *buffer,u8 len)
 {
@@ -72,35 +72,35 @@ void UP_UART2_set_ID(u8 i)
  	UP_UART2_length(UP_ID_reset,8);
 }
 
-void   UP_USART2_type(u8  com, u8 type)//comÈ¡ÖµÎª2£¬typeÈ¡ÖµÎª1£¬2£¬3£¬
+void   UP_USART2_type(u8  com, u8 type)//comå–å€¼ä¸º2ï¼Œtypeå–å€¼ä¸º1ï¼Œ2ï¼Œ3ï¼Œ
 {
 	if(com==2)
 	{
 		switch(type)
 		{
 		case 1:
-			UP_UART2_polling(UP_RXlen,118);//²éÑ¯ID
+			UP_UART2_polling(UP_RXlen,118);//æŸ¥è¯¢ID
 		break;
 		case 2:
-			UP_USART2_long(UP_IID);//·¢ËÍ¾àÀë
+			UP_USART2_long(UP_IID);//å‘é€è·ç¦»
 		break;
 		}
 	}
 }
-void   UP_USART2_coreect_pID(u8  P_ID)//È¡ÖµÎª0-15·¶Î§ÄÚ
+void   UP_USART2_coreect_pID(u8  P_ID)//å–å€¼ä¸º0-15èŒƒå›´å†…
 {
-	UP_UART2_set_ID(P_ID);//ÉèÖÃID
+	UP_UART2_set_ID(P_ID);//è®¾ç½®ID
 }
 
 /*************************************************
-  º¯ÊýÃû³Æ: UP_EnableUSR232IT
-  º¯Êý¹¦ÄÜ: ÉèÖÃ²¨ÌØÂÊ
-  ±»±¾º¯Êýµ÷ÓÃµÄº¯Êý: ÎÞ
-  µ÷ÓÃ±¾º¯ÊýµÄº¯Êý: ÎÞ
-  ÊäÈë²ÎÊýËµÃ÷: BaudRate¿ÉÒÔÊÇ115200µÈ
-  Êä³ö²ÎÊýËµÃ÷: ÎÞ       
-  º¯Êý·µ»ØÖµ:  ÎÞ
-  ÆäËüËµÃ÷: ÎÞ        
+  å‡½æ•°åç§°: UP_EnableUSR232IT
+  å‡½æ•°åŠŸèƒ½: è®¾ç½®æ³¢ç‰¹çŽ‡
+  è¢«æœ¬å‡½æ•°è°ƒç”¨çš„å‡½æ•°: æ— 
+  è°ƒç”¨æœ¬å‡½æ•°çš„å‡½æ•°: æ— 
+  è¾“å…¥å‚æ•°è¯´æ˜Ž: BaudRateå¯ä»¥æ˜¯115200ç­‰
+  è¾“å‡ºå‚æ•°è¯´æ˜Ž: æ—        
+  å‡½æ•°è¿”å›žå€¼:  æ— 
+  å…¶å®ƒè¯´æ˜Ž: æ—         
 ***************************************************/
 void UP_EnableUSR232IT(u32 BaudRate)
 {
@@ -108,14 +108,14 @@ void UP_EnableUSR232IT(u32 BaudRate)
 	g_UP_bUSR232IT = TRUE;		
 }
 /*************************************************
-  º¯ÊýÃû³Æ: UP_USR232_EnableIT
-  º¯Êý¹¦ÄÜ: Ê¹ÄÜUSR232Êý¾Ý½ÓÊÕÖÐ¶Ï
-  ±»±¾º¯Êýµ÷ÓÃµÄº¯Êý: ÎÞ
-  µ÷ÓÃ±¾º¯ÊýµÄº¯Êý: ÎÞ
-  ÊäÈë²ÎÊýËµÃ÷: ÎÞ
-  Êä³ö²ÎÊýËµÃ÷: ÎÞ       
-  º¯Êý·µ»ØÖµ:  ÎÞ
-  ÆäËüËµÃ÷: ÎÞ        
+  å‡½æ•°åç§°: UP_USR232_EnableIT
+  å‡½æ•°åŠŸèƒ½: ä½¿èƒ½USR232æ•°æ®æŽ¥æ”¶ä¸­æ–­
+  è¢«æœ¬å‡½æ•°è°ƒç”¨çš„å‡½æ•°: æ— 
+  è°ƒç”¨æœ¬å‡½æ•°çš„å‡½æ•°: æ— 
+  è¾“å…¥å‚æ•°è¯´æ˜Ž: æ— 
+  è¾“å‡ºå‚æ•°è¯´æ˜Ž: æ—        
+  å‡½æ•°è¿”å›žå€¼:  æ— 
+  å…¶å®ƒè¯´æ˜Ž: æ—         
 ***************************************************/ 
 void UP_USR232_EnableIT(void)
 {
@@ -123,14 +123,14 @@ void UP_USR232_EnableIT(void)
 }
 
 /*************************************************
-  º¯ÊýÃû³Æ: UP_SetUSR232Hadler
-  º¯Êý¹¦ÄÜ: ´«µÝUSR232Êý¾Ý½ÓÊÕÖÐ¶ÏÈë¿Úº¯Êý
-  ±»±¾º¯Êýµ÷ÓÃµÄº¯Êý: ÎÞ
-  µ÷ÓÃ±¾º¯ÊýµÄº¯Êý: ÎÞ
-  ÊäÈë²ÎÊýËµÃ÷: ApplicationAddress¿ÉÒÔ¶¨Òå³É½ÓÊÕÖÐ¶ÏÈë¿Úº¯ÊýµØÖ·
-  Êä³ö²ÎÊýËµÃ÷: ÎÞ       
-  º¯Êý·µ»ØÖµ: ÎÞ
-  ÆäËüËµÃ÷: ÎÞ        
+  å‡½æ•°åç§°: UP_SetUSR232Hadler
+  å‡½æ•°åŠŸèƒ½: ä¼ é€’USR232æ•°æ®æŽ¥æ”¶ä¸­æ–­å…¥å£å‡½æ•°
+  è¢«æœ¬å‡½æ•°è°ƒç”¨çš„å‡½æ•°: æ— 
+  è°ƒç”¨æœ¬å‡½æ•°çš„å‡½æ•°: æ— 
+  è¾“å…¥å‚æ•°è¯´æ˜Ž: ApplicationAddresså¯ä»¥å®šä¹‰æˆæŽ¥æ”¶ä¸­æ–­å…¥å£å‡½æ•°åœ°å€
+  è¾“å‡ºå‚æ•°è¯´æ˜Ž: æ—        
+  å‡½æ•°è¿”å›žå€¼: æ— 
+  å…¶å®ƒè¯´æ˜Ž: æ—         
 ***************************************************/ 
 void UP_SetUSR232Hadler(void (*ApplicationAddress)(u32))
 {
@@ -139,14 +139,14 @@ void UP_SetUSR232Hadler(void (*ApplicationAddress)(u32))
 }
 
 /*************************************************
-  º¯ÊýÃû³Æ: UP_USR232_Putc
-  º¯Êý¹¦ÄÜ: USR232·¢ËÍÒ»¸ö×Ö·û
-  ±»±¾º¯Êýµ÷ÓÃµÄº¯Êý: UP_UART5_Putc(unsigned char c);
-  µ÷ÓÃ±¾º¯ÊýµÄº¯Êý: ÎÞ
-  ÊäÈë²ÎÊýËµÃ÷: c´ú±íµÄÊÇ·¢ËÍµÄ×Ö·û
-  Êä³ö²ÎÊýËµÃ÷: ÎÞ       
-  º¯Êý·µ»ØÖµ: ÎÞ
-  ÆäËüËµÃ÷: ÎÞ        
+  å‡½æ•°åç§°: UP_USR232_Putc
+  å‡½æ•°åŠŸèƒ½: USR232å‘é€ä¸€ä¸ªå­—ç¬¦
+  è¢«æœ¬å‡½æ•°è°ƒç”¨çš„å‡½æ•°: UP_UART5_Putc(unsigned char c);
+  è°ƒç”¨æœ¬å‡½æ•°çš„å‡½æ•°: æ— 
+  è¾“å…¥å‚æ•°è¯´æ˜Ž: cä»£è¡¨çš„æ˜¯å‘é€çš„å­—ç¬¦
+  è¾“å‡ºå‚æ•°è¯´æ˜Ž: æ—        
+  å‡½æ•°è¿”å›žå€¼: æ— 
+  å…¶å®ƒè¯´æ˜Ž: æ—         
 ***************************************************/ 
 void UP_USR232_Putc(unsigned char c)
 {
@@ -154,14 +154,14 @@ void UP_USR232_Putc(unsigned char c)
 } 
 
 /*************************************************
-  º¯ÊýÃû³Æ: UP_USR232_Puts
-  º¯Êý¹¦ÄÜ: USR232·¢ËÍÒ»´®×Ö·û
-  ±»±¾º¯Êýµ÷ÓÃµÄº¯Êý: UP_UART5_Puts(str);
-  µ÷ÓÃ±¾º¯ÊýµÄº¯Êý: ÎÞ
-  ÊäÈë²ÎÊýËµÃ÷: ¿ÉÒÔ·¢ËÍ×Ö·û´®
-  Êä³ö²ÎÊýËµÃ÷: ÎÞ       
-  º¯Êý·µ»ØÖµ: ÎÞ
-  ÆäËüËµÃ÷: ÎÞ        
+  å‡½æ•°åç§°: UP_USR232_Puts
+  å‡½æ•°åŠŸèƒ½: USR232å‘é€ä¸€ä¸²å­—ç¬¦
+  è¢«æœ¬å‡½æ•°è°ƒç”¨çš„å‡½æ•°: UP_UART5_Puts(str);
+  è°ƒç”¨æœ¬å‡½æ•°çš„å‡½æ•°: æ— 
+  è¾“å…¥å‚æ•°è¯´æ˜Ž: å¯ä»¥å‘é€å­—ç¬¦ä¸²
+  è¾“å‡ºå‚æ•°è¯´æ˜Ž: æ—        
+  å‡½æ•°è¿”å›žå€¼: æ— 
+  å…¶å®ƒè¯´æ˜Ž: æ—         
 ***************************************************/ 	
 void UP_USR232_Puts(char * str)
 {

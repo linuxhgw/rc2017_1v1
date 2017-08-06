@@ -60,6 +60,28 @@ void UA01_PreAction() {
     UA01_BackArmUp();
 }
 
+
+void UA02_ForAction(){
+    UA01_hand_motor_speed[0] =-MOTOR_SPEED;
+    UA01_hand_motor_speed[1] = MOTOR_SPEED;
+    UP_CDS_Set4MotoSpeed(UA01_hand_motor_list, UA01_hand_motor_speed);//电机速度初始化设置
+    UA01_FrontArmDown();
+    UA01_BackArmDown();
+}
+
+void GetOnStage(){
+    UA01_PreAction();
+    SM_ServoMove(650, 650); //上坡，调整方向
+    UP_delay_ms(2500);
+    SM_ServoMove(500, 500);
+    UP_delay_ms(500);
+    SM_ServoMove(350,350);
+    UP_delay_ms(300);
+    SM_ServoMove(0, 0);
+    UA02_ForAction();
+
+}
+
 //上台
 void UA01_GetOnStage(int direction) {
     UA01_PreAction();
