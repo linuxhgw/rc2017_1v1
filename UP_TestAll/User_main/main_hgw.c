@@ -7,6 +7,7 @@
 #include "Utils/Grayscale4Sensor.h"
 #include "Utils/ServoMove.h"
 #include "Utils/ColorDiscrimination.h"
+#include "Utils/OnStage.h"
 //#include "Utils/CheckState.h"
 //#include "Utils/UserAction01.h"
 
@@ -18,6 +19,8 @@
 
 u8 GLOBAL_SENSOR_LIST[8] = {0, 1, 2, 3, 4, 5, 6};
 u8 CS_IRSensorList[3];
+char  UP_Woody_StartImageRecognition1[5];
+
 
 const int kG4S_SensorData[4][G4S_SENSOR_DATA_LENGTH] = {{3540, 3500, 3400, 3240},
                                                         {3450, 3420, 3220, 3100},
@@ -34,8 +37,9 @@ void init() {
     CS_IRSensorList[1] = GLOBAL_SENSOR_LIST[5];
     CS_IRSensorList[2] = GLOBAL_SENSOR_LIST[6];
     SM_Init();
-    Color_Init();
-    Color_BlueDiscrimination();
+    OS_Init();
+    ColorDiscrimination_Init();
+    CD_BlueDiscrimination();
     UP_delay_ms(200);
 
 }
@@ -58,7 +62,7 @@ int main(void) {
 
     while (!(UP_ADC_GetIO(CS_IRSensorList[2]) == 0));
 
-
+    OnStage();
 
 
    G4S_enable(ENABLE);
@@ -66,7 +70,7 @@ int main(void) {
 
     while (1) {
         if (G4S_next_direction==DIRECTION_NONE) {
-            Color_Discrimination();
+            CD_DiscriminationEnemy();
             if (UP_ADC_GetIO(CS_IRSensorList[0]) == 0) {
                 if (IsEnemy == 1) {
                     continue;

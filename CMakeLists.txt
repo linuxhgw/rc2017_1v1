@@ -11,7 +11,7 @@ file(GLOB_RECURSE USER_UTILS_SOURCES "UP_TestAll/Utils/*.c")
 file(GLOB_RECURSE UPLIB_SOURCES "UP_TestAll/UpLib/*.c")
 
 add_library(UPLIB ${UPLIB_SOURCES})
-add_library(USERLIB ${USER_UTILS_SOURCES} UP_TestAll/Utils/ColorDiscrimination.h UP_TestAll/Utils/ColorDiscrimination.c)
+add_library(USERLIB ${USER_UTILS_SOURCES} UP_TestAll/Utils/ColorDiscrimination.h UP_TestAll/Utils/ColorDiscrimination.c UP_TestAll/Utils/OnStage.h UP_TestAll/Utils/OnStage.c)
 
 include_directories(UP_TestAll)
 include_directories(UpLib)

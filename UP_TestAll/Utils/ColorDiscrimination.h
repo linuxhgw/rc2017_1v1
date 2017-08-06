@@ -8,17 +8,15 @@
 #endif //RC2017_1V1_COLORDISCRIMINATION_H
 extern int IsEnemy;
 
-extern char green[13];
+extern char ColorDiscrimination_Green[13];
 
-extern char blue[13];
+extern char ColorDiscrimination_Bule[13];
 
-extern char  UP_Woody_StartImageRecognition1[5];
+void ColorDiscrimination_Init(void);
 
-void Color_Init(void);
+void CD_GreenDiscrimination(void);
 
-void Color_GreenDiscrimination(void);
+void CD_BlueDiscrimination(void);
 
-void Color_BlueDiscrimination(void);
-
-void Color_Discrimination(void);
+void CD_DiscriminationEnemy(void);
 
